@@ -1,0 +1,30 @@
+.banner {
+  background-image: linear-gradient(45deg, #000000d1, #000000d6),
+    url("../../assets/hotel.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-shape-divider-bottom-1703058761 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-bottom-1703058761 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 150px;
+}
+
+.custom-shape-divider-bottom-1703058761 .shape-fill {
+  fill: #152839;
+}
