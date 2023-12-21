@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Lottie from "lottie-react";
 import registerAnimation from "../../../public/json/register.json";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProviders";
+import { toast } from 'react-toastify';
 
 const Register = () => {
-  const handleSubmit = (e) => {};
+
+  const [error , setError] = useState('');
+  const {createUser} = useContext(AuthContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirm = form.confirm.value;
+    console.log(email , password , confirm);
+
+    createUser(email , password)
+    .then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+    })
+    .catch((error) => {
+      setError(error.message);
+      console.error(error.message);
+    })
+  };
 
   return (
     <div className="container mx-auto p-5">
@@ -37,6 +60,7 @@ const Register = () => {
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
+                  toast(error)
                   <input
                     type="email"
                     placeholder="Enter Your Valid Email"
