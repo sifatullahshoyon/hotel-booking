@@ -1,0 +1,16 @@
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 295px;
+  color: #ffffff;
+}
+
+#password {
+  width: 100%;
+}
