@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 import registerAnimation from "../../../public/json/register.json";
 import { FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProviders";
 import { toast } from "react-toastify";
 import "./Register.css";
@@ -11,32 +11,52 @@ import "./Register.css";
 const Register = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { createUser , user , emailVarifacation } = useContext(AuthContext);
+
+  let navigate = useNavigate(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+   
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    const confirm = form.confirm.value;
-    console.log(email, password, confirm);
+    // const confirm = form.confirm.value;
+    console.log(email, password);
+    
 
     // Password Validation
-    if (password !== confirm) {
-      return toast("Password Don't Match");
-    }
+    // if (password !== confirm) {
+    //   setError('');
+    //   setError("Password don't match");
+    //   return;
+    // }
+    // else if(!/.{8,}/.test(password)){
+    //   setError('password should be minimum 8 character');
+    //   return;
+    // }
 
     createUser(email, password)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
         toast("User Register Successfully");
+        form.reset();
+        emailVarifacation(loggedUser);
+        navigate('/');
       })
       .catch((error) => {
         setError(error.message);
         console.error(error.message);
       });
+
+      emailVarifacation(user)
+      .then((result) => {
+        toast('Email Varifacition Link Send');
+      })
+      .catch((err) => console.err(err.message));
+
   };
 
   return (
@@ -69,7 +89,6 @@ const Register = () => {
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
-                  <span className="text-red-500">{error}</span>
                   <input
                     type="email"
                     placeholder="Enter Your Valid Email"
@@ -78,6 +97,7 @@ const Register = () => {
                     required
                   />
                 </div>
+                <span className="text-red-500">{error}</span>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Password</span>
@@ -99,7 +119,7 @@ const Register = () => {
                       required
                     />
                   </div>
-                  <label className="label">
+                  {/* <label className="label">
                     <span className="label-text">Confirm Password</span>
                   </label>
                   <div className="input-container">
@@ -122,24 +142,24 @@ const Register = () => {
                       id="password"
                       required
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary text-white">
+                  <button navigate='/' className="btn btn-primary text-white">
                     Sign Up
                   </button>
                   <p className="text-center mt-2">
                     New To Hotel Booking?{" "}
                     <Link to="/login" className="text-yellow-500">
-                      Create An Account
+                      Login
                     </Link>
                   </p>
                 </div>
-                <div className="form-control mt-6">
+                {/* <div className="form-control mt-6">
                   <button className="btn btn-primary text-white">
                     <FaGoogle /> Login With Google
                   </button>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>

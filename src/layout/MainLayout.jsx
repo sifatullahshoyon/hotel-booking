@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../pages/Header/Header';
+// import Header from '../pages/Header/Header';
 import { Outlet } from 'react-router-dom';
-import Footer from '../pages/Footer/Footer';
+// import Footer from '../pages/Footer/Footer';
 import Navbar from '../pages/shared/Navbar/Navbar';
 
 const MainLayout = () => {
@@ -12,7 +12,7 @@ const MainLayout = () => {
             <div className="md:min-h-[calc(100vh-296px)]">
                 <Outlet />
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };
